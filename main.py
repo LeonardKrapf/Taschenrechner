@@ -18,20 +18,20 @@ def calculate(term):
 		# Für alle Potenzen durchgehen
 		while expression is not None:
 			# Potenz suchen
-			expression = re.search(r"(\d+\.?\d*)\s*(\^)\s*(\d+\.?\d*)", phrase)
+			expression = re.search(r"(-?\d+\.?\d*)\s*(\^)\s*(-?\d+\.?\d*)", phrase)
 			# Falls Potenz gefunden
 			if expression is not None:
 				# Wert der Potenz berechnen
 				value = float(expression.group(1)) ** float(expression.group(3))
 				# Potenz durch Wert ersetzen
-				phrase = re.sub(r"(\d+\.?\d*)\s*(\^)\s*(\d+\.?\d*)", str(value), phrase, count=1)
+				phrase = re.sub(r"(-?\d+\.?\d*)\s*(\^)\s*(-?\d+\.?\d*)", str(value), phrase, count=1)
 
 		# Multiplizieren und Dividieren
 		expression = ["multiply_divide"]
 		# Für alle Multiplikationen und Divisionen durchgehen
 		while expression is not None:
 			# Multiplikation oder Division suchen
-			expression = re.search(r"(\d+\.?\d*)\s*([*/])\s*(\d+\.?\d*)", phrase)
+			expression = re.search(r"(-?\d+\.?\d*)\s*([*/])\s*(-?\d+\.?\d*)", phrase)
 			# Falls Multiplikation oder Division gefunden
 			if expression is not None:
 				# Falls Multiplikation
@@ -45,14 +45,14 @@ def calculate(term):
 				else:
 					value = None
 				# Multiplikation oder Division durch Produkt oder Quotient ersetzen
-				phrase = re.sub(r"(\d+\.?\d*)\s*([*/])\s*(\d+\.?\d*)", str(value), phrase, count=1)
+				phrase = re.sub(r"(-?\d+\.?\d*)\s*([*/])\s*(-?\d+\.?\d*)", str(value), phrase, count=1)
 
 		# Addieren und subtrahieren
 		expression = ["add_subtract"]
 		# Für alle Additionen und Subtraktionen durchgehen
 		while expression is not None:
 			# Addition oder Subtraktion suchen
-			expression = re.search(r"(\d+\.?\d*)\s*([+-])\s*(\d+\.?\d*)", phrase)
+			expression = re.search(r"(-?\d+\.?\d*)\s*([+-])\s*(-?\d+\.?\d*)", phrase)
 			# Falls Addition oder Subtraktion gefunden
 			if expression is not None:
 				# Falls Addition
@@ -66,7 +66,7 @@ def calculate(term):
 				else:
 					value = None
 				# Addition oder Subtraktion durch Summe oder Differenz ersetzen
-				phrase = re.sub(r"(\d+\.?\d*)\s*([+-])\s*(\d+\.?\d*)", str(value), phrase, count=1)
+				phrase = re.sub(r"(-?\d+\.?\d*)\s*([+-])\s*(-?\d+\.?\d*)", str(value), phrase, count=1)
 		if (re.search(r"(\([^(]*\))", term)) is None:
 			term = phrase
 		else:
