@@ -1,3 +1,4 @@
+# Reguläre Ausdrücke importieren
 import re
 
 
@@ -5,10 +6,10 @@ def calculate(term):
 
 	expression = ["parentheses"]
 	while expression is not None:
-		if (re.search(r"(\(.*\))", term)) is None:
+		if (re.search(r"(\([^(]*\))", term)) is None:
 			phrase = term
 		else:
-			phrase = str((re.search(r"(\(.*\))", term)).group(1))
+			phrase = str((re.search(r"(\([^(]*\))", term)).group(1))
 			phrase = re.sub(r"\(", " ", phrase, count=1)
 			phrase = re.sub(r"\)", " ", phrase, count=1)
 
@@ -66,12 +67,18 @@ def calculate(term):
 					value = None
 				# Addition oder Subtraktion durch Summe oder Differenz ersetzen
 				phrase = re.sub(r"(\d+\.?\d*)\s*([+-])\s*(\d+\.?\d*)", str(value), phrase, count=1)
-		if (re.search(r"(\(.*\))", term)) is None:
+		if (re.search(r"(\([^(]*\))", term)) is None:
 			term = phrase
 		else:
-			term = re.sub(r"(\(.*\))", phrase, term, count=1)
+			term = re.sub(r"(\([^(]*\))", phrase, term, count=1)
 			expression = ["True"]
 	return term
 
 
-print(calculate(input("Taschenrechner: ")))
+while True:
+	print(calculate(input("Taschenrechner: ")))
+	weitere_berechnung = input("Willst du eine weitere Berechnung durchführen [Y/n]? ")
+	if weitere_berechnung != "y" and weitere_berechnung != "Y" and weitere_berechnung != "":
+		break
+
+print("\nVielen Dank für die Benutzung des Taschenrechners!")
